@@ -60,6 +60,11 @@ MyHashSet.prototype.add = function(key) {
   const bucketItem = this.getBucketItems(key);
 
   if (this.storage[bucket] === null) {
+    if ( bucket === 0 ) {
+      // to include upper bound which is 10 ^ 6 as it covers from 0 - 9999 and as this is an array
+      //if linked list is used we wouldn't need it (HashMap)
+      this.storage[bucket] = new Array(this.bucketItems + 1).fill(false)
+    }
     this.storage[bucket] = new Array(this.bucketItems).fill(false)
   }
 
